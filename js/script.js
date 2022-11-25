@@ -65,13 +65,20 @@
   
   })();
   
-  // search-bar form
+ 
 
   var search = document.getElementsByName("search")[0];
+  var page = window.location.pathname;
+  var page = page.split("/");
+  var page = page[page.length - 1];
 
-// constantly check if search input is empty
+  console.log(page);
+
+// constantly check if search input is empty if "products.php" is loaded
 
 setInterval(function() {
+if (page == "products.php") {
+
 
     if (search.value == "") {
 
@@ -83,6 +90,7 @@ setInterval(function() {
 
     }
 
+}
 }, 100);
 
 $(document).ready(function(){

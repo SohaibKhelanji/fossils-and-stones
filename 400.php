@@ -9,7 +9,7 @@ include 'incs/navBar.php';
 <body>
 
 <div class="centered">
-    <img src="imgs/404.svg" alt="Page not found">
+    <img src="imgs/400.svg" alt="Product Not Found">
 </div>
 
 <?php
