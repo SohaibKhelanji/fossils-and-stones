@@ -37,6 +37,9 @@ if (!$rowCount < 1) {
                     <span class = \"product-price\">€$row[product_price]</span>
                     <p class = \"product-description\">$row[product_description]</p>
                     <div class = \"btn-groups\">
+                        <input type = \"number\" name = \"amount\" id = \"amount\" value = \"1\" min = \"1\" max = \"10\">
+                        <br>
+                        <br>
                         <button type = \"button\" class = \"add-cart-btn\"><i class = \"fas fa-shopping-cart\"></i>Toevoegen aan winkelmandje</button>
                         <button type = \"button\" class = \"buy-now-btn\"><i class = \"fas fa-heart\"></i>Toevoegen aan verlanglijst</button>
                     </div>

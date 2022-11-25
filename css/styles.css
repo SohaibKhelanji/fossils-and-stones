@@ -993,6 +993,16 @@ button.submit {
 .btn-groups button .fas{
     margin-right: 8px;
 }
+#amount {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+}
 .add-cart-btn{
     background-color: #253d84;
     border: 2px solid #253d84;
