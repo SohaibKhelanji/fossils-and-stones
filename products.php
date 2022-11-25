@@ -49,7 +49,7 @@ foreach ($resultCategory as $category) {
         <div class=\"price\">
         €$row[product_price],-
         </div>
-        <a href=\"#\">Bekijken</a>
+        <a href=\"viewProduct.php?id=$row[product_id]\">Bekijken</a>
       </div>
      </div>
    ";
