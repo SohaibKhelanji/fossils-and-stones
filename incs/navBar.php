@@ -30,7 +30,7 @@
                    </ul>
                 </li>
                 <li class=\"menu-item\">
-                   <a href=\"#\"><i class=\"fas fa-shopping-cart\"></i></a>
+                   <a href=\"shoppingCart.php\"><i class=\"fas fa-shopping-cart\"></i></a>
                 </li>
              </ul>";
              } else {
