@@ -22,7 +22,7 @@ include 'incs/navBar.php';
 <div id= all-products>
 
 <?php 
-$stmtCategory = $dbh->connection()->prepare("SELECT * FROM products_categories ORDER BY rand()");
+$stmtCategory = $dbh->connection()->prepare("SELECT * FROM product_category ORDER BY rand()");
 $stmtCategory->execute();
 $resultCategory = $stmtCategory->fetchAll();
 
@@ -31,7 +31,7 @@ foreach ($resultCategory as $category) {
     echo "<div class=\"products-wrapper-category\">";
     echo "<h2 class=\"category-title\">$category[category_name]</h2>";
 
-    $stmt = $dbh->connection()->prepare("SELECT * FROM products INNER JOIN products_categories ON products.product_category = products_categories.category_id INNER JOIN products_images ON products_images.product_id = products.product_id WHERE product_category = $category[category_id] ORDER BY rand();");
+    $stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product_category = $category[category_id] ORDER BY rand();");
 
     $stmt->execute();
 

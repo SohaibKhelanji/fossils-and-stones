@@ -12,7 +12,7 @@ include 'incs/navBar.php';
 
 <?php
 $id = $_GET['id'];
-$stmt = $dbh->connection()->prepare("SELECT * FROM products INNER JOIN products_categories ON products.product_category = products_categories.category_id INNER JOIN products_images ON products_images.product_id = products.product_id WHERE products.product_id = $id;");
+$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN products_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product.product_id = $id;");
 
 $stmt->execute();
 

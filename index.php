@@ -16,7 +16,7 @@ include 'incs/navBar.php';
 
 <div id="products-wrapper">
  <?php
-$stmt = $dbh->connection()->prepare("SELECT * FROM products INNER JOIN products_categories ON products.product_category = products_categories.category_id INNER JOIN products_images ON products_images.product_id = products.product_id ORDER BY rand() LIMIT 6;");
+$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id ORDER BY rand() LIMIT 6;");
 
 $stmt->execute();
 
@@ -38,6 +38,7 @@ foreach ($result as $row) {
   </div>
     ";
 }
+
 
 ?>
 

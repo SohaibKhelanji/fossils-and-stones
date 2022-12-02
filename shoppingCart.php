@@ -80,10 +80,10 @@ include 'incs/navBar.php';
                         ";
 
                         $total = $total + ($value['product_price'] * $value['product_quantity']);
-                        $total = number_format($total, 2);
+                        $totalPrice = number_format($total, 2);
                         
                 }
-                $totalPrice = $total;
+                $totalPrice = $totalPrice;
 
                 echo " 
                 </div>
@@ -132,16 +132,17 @@ include 'incs/navBar.php';
 
 
 
-<!-- button that unsets session cart -->
+<!-- button that unsets session cart
 <form action="shoppingCart.php" method="post">
     <input type="submit" name="empty" value="Empty Cart">
 </form>
 
-<?php if (isset($_POST['empty'])) {
+<?php 
+if (isset($_POST['empty'])) {
     unset($_SESSION['cart']);
     header("Location: shoppingCart.php");
 }
-?>
+?> -->
 
 <?php
 include 'incs/footer.php';

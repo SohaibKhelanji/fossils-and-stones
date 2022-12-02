@@ -33,7 +33,7 @@
                    <a href=\"shoppingCart.php\"><i class=\"fas fa-shopping-cart\"></i></a>
                 </li>
              </ul>";
-             } else {
+             } elseif (isset($_SESSION['userId']) && $_SESSION['userRole'] == "user") {
                 echo" <ul class=\"menu\">
                 <li class=\"menu-item\">
                    <a href=\"products.php\">Producten</a>
@@ -53,7 +53,28 @@
                    <a href=\"#\"><i class=\"fas fa-shopping-cart\"></i></a>
                 </li>
              </ul>";
-             }
+             } elseif (isset($_SESSION['userId']) && $_SESSION['userRole'] == "admin") {
+               echo" <ul class=\"menu\">
+               <li class=\"menu-item\">
+                  <a href=\"products.php\">Producten</a>
+               </li>
+               <li class=\"menu-item\">
+                  <a href=\"#\">Contact</a>
+               </li>
+               <li class=\"menu-item menu-item-has-children\">
+                  <a href=\"profile.php\" data-toggle=\sub-menu\">Admin<i class=\"plus\"></i></a>
+                  <ul class=\"sub-menu\">
+                      <li class=\"menu-item\"><a href=\"#\">Producten</a></li>
+                      <li class=\"menu-item\"><a href=\"#\">Gebruikers</a></li>
+                      <li class=\"menu-item\"><a href=\"#\">Bestellingen</a></li>
+                      <li class=\"menu-item\"><a href=\"logout.php\">Uitloggen</a></li>
+                  </ul>
+               </li>
+               <li class=\"menu-item\">
+                  <a href=\"#\"><i class=\"fas fa-shopping-cart\"></i></a>
+               </li>
+            </ul>";
+            }
              ?>
            </nav>
         </div>

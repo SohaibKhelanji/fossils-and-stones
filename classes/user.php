@@ -24,7 +24,7 @@ class User extends dbh
     }
 
     protected function userExists() {
-        $stmt = $this->connection()->prepare('SELECT user_email FROM users WHERE user_email= ?;');
+        $stmt = $this->connection()->prepare('SELECT user_email FROM user WHERE user_email= ?;');
 
         if(!$stmt->execute(array($this->email))) {
         $stmt = null;
@@ -48,7 +48,7 @@ class User extends dbh
     {
             $userExists = $this->userExists();
         if ($userExists == 1) {
-            $stmt = $this->connection()->prepare('INSERT INTO users (user_firstname, user_lastname, user_email, user_password) VALUES (?, ?, ?, ?);');
+            $stmt = $this->connection()->prepare('INSERT INTO user (user_firstname, user_lastname, user_email, user_password) VALUES (?, ?, ?, ?);');
             $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
             if (!$stmt->execute(array($this->firstname, $this->lastname, $this->email, $hashedPassword))) {
@@ -59,7 +59,7 @@ class User extends dbh
 
             $stmt = null;
 
-            $stmt2 = $this->connection()->prepare('SELECT user_id FROM users WHERE user_email = ?;');
+            $stmt2 = $this->connection()->prepare('SELECT user_id FROM user WHERE user_email = ?;');
             if (!$stmt2->execute(array($this->email))) {
                 $stmt2 = null;
                 header("location: register.php?error=stmt2CreateUserFailed");
@@ -69,7 +69,7 @@ class User extends dbh
             $userId = $stmt2->fetch(PDO::FETCH_ASSOC);
             
 
-            $stmt3 = $this->connection()->prepare('INSERT INTO users_addresses (address_streetname, address_housenumber, address_postalcode, address_city, user_id) VALUES (?, ?, ?, ?, ?);');
+            $stmt3 = $this->connection()->prepare('INSERT INTO user_address (address_streetname, address_housenumber, address_postalcode, address_city, user_id) VALUES (?, ?, ?, ?, ?);');
            
             if (!$stmt3->execute(array($this->streetname, $this->housenumber, $this->postalcode, $this->city, $userId['user_id']))) {
                 $stmt = null;
@@ -88,7 +88,7 @@ class User extends dbh
         $userExists=  $this->userExists();
 
         if ($userExists == 0) {
-            $stmt = $this->connection()->prepare('SELECT user_password FROM users WHERE user_email= ?;');
+            $stmt = $this->connection()->prepare('SELECT user_password FROM user WHERE user_email= ?;');
 
 
             if (!$stmt->execute(array($this->email))) {
@@ -102,7 +102,7 @@ class User extends dbh
 
             if (!$checkPassword == false) {
 
-                $stmtId = $this->connection()->prepare('SELECT user_id FROM users WHERE user_email= ?;');
+                $stmtId = $this->connection()->prepare('SELECT user_id FROM user WHERE user_email= ?;');
 
                 if (!$stmtId->execute(array($this->email))) {
                     $stmtId = null;
@@ -119,7 +119,7 @@ class User extends dbh
 
                 $userId = $stmtId->fetch(PDO::FETCH_ASSOC);
 
-                $stmtUser = $this->connection()->prepare('SELECT * FROM users INNER JOIN users_addresses ON users.user_id = users_addresses.user_id WHERE users.user_id= ?;');
+                $stmtUser = $this->connection()->prepare('SELECT * FROM user INNER JOIN user_address ON user.user_id = user_address.user_id WHERE user.user_id= ?;');
 
                 if (!$stmtUser->execute(array($userId['user_id']))) {
                     $stmtUser = null;
@@ -165,7 +165,7 @@ class User extends dbh
         $userExists=  $this->userExists();
 
         if ($userExists == 0) {
-            $stmt = $this->connection()->prepare('UPDATE users SET resetcode = ? WHERE email = ?;');
+            $stmt = $this->connection()->prepare('UPDATE user SET resetcode = ? WHERE email = ?;');
 
             $hashedResetCode = password_hash($resetCode, PASSWORD_DEFAULT);
             if (!$stmt->execute(array($hashedResetCode, $this->email))) {
