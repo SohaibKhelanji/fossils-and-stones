@@ -50,7 +50,7 @@
                    </ul>
                 </li>
                 <li class=\"menu-item\">
-                   <a href=\"#\"><i class=\"fas fa-shopping-cart\"></i></a>
+                   <a href=\"shoppingCart.php\"><i class=\"fas fa-shopping-cart\"></i></a>
                 </li>
              </ul>";
              } elseif (isset($_SESSION['userId']) && $_SESSION['userRole'] == "admin") {
@@ -64,14 +64,10 @@
                <li class=\"menu-item menu-item-has-children\">
                   <a href=\"profile.php\" data-toggle=\sub-menu\">Admin<i class=\"plus\"></i></a>
                   <ul class=\"sub-menu\">
-                      <li class=\"menu-item\"><a href=\"#\">Producten</a></li>
-                      <li class=\"menu-item\"><a href=\"#\">Gebruikers</a></li>
+                      <li class=\"menu-item\"><a href=\"usersAdmin.php\">Gebruikers</a></li>
                       <li class=\"menu-item\"><a href=\"#\">Bestellingen</a></li>
                       <li class=\"menu-item\"><a href=\"logout.php\">Uitloggen</a></li>
                   </ul>
-               </li>
-               <li class=\"menu-item\">
-                  <a href=\"#\"><i class=\"fas fa-shopping-cart\"></i></a>
                </li>
             </ul>";
             }

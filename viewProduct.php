@@ -12,18 +12,21 @@ include 'incs/navBar.php';
 
 <?php
 $id = $_GET['id'];
-$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN products_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product.product_id = $id;");
+$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product.product_id = $id;");
+
 
 $stmt->execute();
 
 $result = $stmt->fetchAll();
+
 
 $rowCount = $stmt->rowCount();
 
 if (!$rowCount < 1) {
 
     foreach ($result as $row) {
-        echo "
+        if ($row['product_availability'] == 'true' && $row['product_quantity'] > 0) {
+            echo "
         <div class = \"main-wrapper\">
         <div class = \"container\">
             <div class = \"product-div\">
@@ -53,7 +56,10 @@ if (!$rowCount < 1) {
         </div>
     </div>
         ";
+        } else {
+            header("Location: 400.php");
         }
+    }
     }else{
         header("Location: 400.php");
     }

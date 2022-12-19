@@ -68,13 +68,14 @@
  
 
   var search = document.getElementsByName("search")[0];
+  var searchCategory = document.getElementsByName("searchCategory")[0];
+  var searchUser = document.getElementsByName("searchUser")[0];
   var page = window.location.pathname;
   var page = page.split("/");
   var page = page[page.length - 1];
 
-  console.log(page);
 
-// constantly check if search input is empty if "products.php" is loaded
+
 
 setInterval(function() {
 if (page == "products.php") {
@@ -91,7 +92,39 @@ if (page == "products.php") {
     }
 
 }
+if (page == "categories.php") {
+    
+    
+    if (searchCategory.value == "") {
+
+      document.getElementById("all-categories").style.display = "block";
+
+    } else {
+
+      document.getElementById("all-categories").style.display = "none";
+
+    }
+
+}
+if (page == "usersAdmin.php") {
+    
+    
+  if (searchUser.value == "") {
+
+    document.getElementById("all-users").style.display = "block";
+
+  } else {
+
+    document.getElementById("all-users").style.display = "none";
+
+  }
+
+}
 }, 100);
+
+
+
+
 
 $(document).ready(function(){
 
@@ -103,7 +136,7 @@ $(document).ready(function(){
 
             $.ajax({
 
-                url:"incs/search.php",
+                url:"ajax/search.php",
                 method:"post",
                 data:{search:search},
                 success:function(response){
@@ -121,3 +154,93 @@ $(document).ready(function(){
     });
   
   });
+
+
+  $(document).ready(function(){
+
+    $("#searchCategory").keyup(function(){
+
+        var search = $(this).val();
+        
+        if(search != ''){
+
+            $.ajax({
+
+                url:"ajax/categorySearch.php",
+                method:"post",
+                data:{search:search},
+                success:function(response){
+                    $("#search-results-categories").html(response);
+                }
+
+            });
+
+          }else{
+              
+              $("#search-results-categories").html("");
+  
+          }
+
+    });
+  
+  });
+
+  $(document).ready(function(){
+
+    $("#searchUser").keyup(function(){
+
+        var search = $(this).val();
+        
+        if(search != ''){
+
+            $.ajax({
+
+                url:"ajax/userSearch.php",
+                method:"post",
+                data:{search:search},
+                success:function(response){
+                    $("#search-results-users").html(response);
+                }
+
+            });
+
+          }else{
+              
+              $("#search-results-users").html("");
+  
+          }
+
+    });
+  
+  });
+
+  function triggerClick() {
+    document.querySelector('#productPictureUpload').click();
+}
+
+function displayImage(e) {
+    if (e.files[0]){
+         var reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.querySelector('#productPictureDisplay').setAttribute('src', e.target.result);
+        }
+        reader.readAsDataURL(e.files[0]);
+    }
+}
+
+
+
+// if #productAvailability is checked then value is true else false and if value is true then #productAvailability is checked
+function checkAvailability() {
+    if (document.getElementById('productAvailability').checked) {
+        document.getElementById('productAvailability').value = "true";
+    } else {
+        document.getElementById('productAvailability').value = "false";
+    }
+}
+
+
+
+
+

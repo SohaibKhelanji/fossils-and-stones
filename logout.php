@@ -9,6 +9,7 @@ if (isset($_SESSION['userId'])) {
 
     $user = new User($userFirstname, $userLastname, $userEmail, $userStreetName, $userHouseNumber, $userPostalCode, $userCity, $userPassword);
     $user->logoutUser();
+    unset($_SESSION['cart']);
 
     header("location: login.php");
 

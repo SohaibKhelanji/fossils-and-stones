@@ -81,11 +81,11 @@ include 'incs/navBar.php';
                 </div>
                 <div class="form-control">
                     <input type="text" name="housenumber" placeholder="Huisnummer">
-                    <i class="fas fa-hashtag"></i>
+                    <i class="fas fa-home"></i>
                 </div>
                 <div class="form-control">
                     <input type="text" name="postalcode" placeholder="Postcode">
-                    <i class="fas fa-street-view"></i>
+                    <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <div class="form-control">
                     <input type="text" name="city" placeholder="Stad">

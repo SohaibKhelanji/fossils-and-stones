@@ -16,14 +16,14 @@ include 'incs/navBar.php';
 
 <div id="products-wrapper">
  <?php
-$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id ORDER BY rand() LIMIT 6;");
+$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product_availability = 'true' AND product_quantity > 0 ORDER BY rand() LIMIT 12;");
 
 $stmt->execute();
 
 $result = $stmt->fetchAll();
 
-foreach ($result as $row) {
-    echo "
+ foreach ($result as $row) {
+     echo "
     <div class=\"product\">
     <div class=\"imgbox\">
       <img src=\"imgs/$row[image_name]\">
@@ -37,8 +37,7 @@ foreach ($result as $row) {
     </div>
   </div>
     ";
-}
-
+   }
 
 ?>
 
