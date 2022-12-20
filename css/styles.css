@@ -1594,6 +1594,18 @@ button.submit {
     margin-top: 50px;
     font-weight: normal;
 }
+
+.submit-cart {
+    color: #fff;
+    padding: 5px 70px;
+    margin: 10px auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    background-color:#253d84;
+    cursor: pointer;
+    transition: opacity 0.4s;
+}
 @media screen and (max-width: 700px) {
 	.content h3 {
 		font-size: 18px;
@@ -1682,6 +1694,13 @@ button.submit {
    margin-left: 20px;
 }
 
+.user-card img {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
 .user-card  p {
     margin-left: 20px;
  }
@@ -1704,6 +1723,12 @@ button.submit {
     .user-card  p {
         margin-left: 0px;
     }
+
+    .user-card img {
+        margin-left: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
     
  }
 
@@ -1711,7 +1736,7 @@ button.submit {
 
 #view-user-container {
     position: absolute;
-    top: 60%;
+    top: 64%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -1730,7 +1755,7 @@ button.submit {
 
 #view-user-container .form-control {
     text-align: center;
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1884,6 +1909,135 @@ button.submit {
         margin-top: 170px; ;
     }
 }
+
+#invoice {
+  width: 21cm;  
+  height: 23.7cm; 
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-size: 12px; 
+}
+
+
+  
+  #logo {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  #logo img {
+    width: 90px;
+  }
+  
+  #invoice h1 {
+    border-top: 1px solid  #5D6975;
+    border-bottom: 1px solid  #5D6975;
+    color: #5D6975;
+    font-size: 2.4em;
+    line-height: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    margin: 0 0 20px 0;
+    background: url(../imgs/dimension.png);
+  }
+  
+  #project {
+    float: left;
+  }
+  
+  #project span {
+    color: #5D6975;
+    text-align: right;
+    width: 52px;
+    margin-right: 10px;
+    display: inline-block;
+    font-size: 0.8em;
+  }
+  
+  #company {
+    float: right;
+    text-align: right;
+    margin-right: 10px;
+  }
+
+  #project {
+    margin-left: 10px;
+  }
+  
+  #project div,
+  #company div {
+    white-space: nowrap;        
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+  }
+  
+  table tr:nth-child(2n-1) td {
+    background: #F5F5F5;
+  }
+  
+  table th,
+  table td {
+    text-align: center;
+  }
+  
+  table th {
+    padding: 5px 20px;
+    color: #5D6975;
+    border-bottom: 1px solid #C1CED9;
+    white-space: nowrap;        
+    font-weight: normal;
+  }
+  
+  table .service,
+  table .desc {
+    text-align: left;
+  }
+  
+  table td {
+    padding: 20px;
+    text-align: right;
+  }
+  
+  table td.service,
+  table td.desc {
+    vertical-align: top;
+  }
+  
+  table td.unit,
+  table td.qty,
+  table td.total {
+    font-size: 1.2em;
+  }
+  
+  
+  #notices .notice {
+    color: #5D6975;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  .submit-profile {
+    color: #fff;
+    padding: 14px 54px;
+    margin: 10px auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    background-color:#253d84;
+    cursor: pointer;
+    transition: opacity 0.4s;
+  }
+
+    .submit-profile:hover {
+        opacity: 0.8;
+    }
+
 
 
 

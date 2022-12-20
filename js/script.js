@@ -70,6 +70,8 @@
   var search = document.getElementsByName("search")[0];
   var searchCategory = document.getElementsByName("searchCategory")[0];
   var searchUser = document.getElementsByName("searchUser")[0];
+  var searchOrder = document.getElementsByName("searchOrder")[0];
+  var searchOrderAdmin = document.getElementsByName("searchOrderAdmin")[0];
   var page = window.location.pathname;
   var page = page.split("/");
   var page = page[page.length - 1];
@@ -120,6 +122,36 @@ if (page == "usersAdmin.php") {
   }
 
 }
+
+if (page == "orders.php") {
+    
+    
+  if (searchOrder.value == "") {
+
+    document.getElementById("all-orders").style.display = "block";
+
+  } else {
+
+    document.getElementById("all-orders").style.display = "none";
+
+  }
+
+}
+
+if (page == "ordersAdmin.php") {
+
+
+  if (searchOrderAdmin.value == "") {
+
+    document.getElementById("all-orders").style.display = "block";
+
+  } else {
+
+    document.getElementById("all-orders").style.display = "none";
+
+  }
+}
+
 }, 100);
 
 
@@ -214,6 +246,36 @@ $(document).ready(function(){
   
   });
 
+  $(document).ready(function(){
+
+    $("#searchOrder").keyup(function(){
+
+        var search = $(this).val();
+
+        if(search != ''){
+
+            $.ajax({
+
+                url:"ajax/orderSearch.php",
+                method:"post",
+                data:{search:search},
+                success:function(response){
+                    $("#search-results-orders").html(response);
+                }
+
+            });
+
+          }else{
+
+              $("#search-results-orders").html("");
+
+          }
+
+    });
+
+  });
+
+  
   function triggerClick() {
     document.querySelector('#productPictureUpload').click();
 }

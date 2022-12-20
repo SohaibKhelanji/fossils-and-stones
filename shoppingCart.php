@@ -78,6 +78,104 @@ if (!empty($_SESSION['cart'])) {
 }
 
 
+// if is submit and session is set, make variable for user_id and timestamp
+if (isset($_POST['submit']) && isset($_SESSION['userId'])) {
+    $user_id = $_SESSION['userId'];
+    $timestamp = date("Y-m-d H:i:s");
+
+    // insert into orders table
+    $sql = "INSERT INTO orders (user_id, orders_timestamp) VALUES (?, ?)";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$user_id, $timestamp]);
+
+// select order with same timestamp and user_id;
+    $sql = "SELECT * FROM orders WHERE user_id = ? AND orders_timestamp = ?";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$user_id, $timestamp]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $last_id = $result['orders_id'];
+
+
+    // insert into order_product table 
+    foreach ($_SESSION['cart'] as $key => $value) {
+        $sql = "INSERT INTO order_product (orders_id, product_id, order_product_quantity) VALUES (?, ?, ?)";
+        $stmt = $dbh->connection()->prepare($sql);
+        $stmt->execute([$last_id, $value['product_id'], $value['product_quantity']]);
+    }
+
+    // remove quantity from product table quantity
+    foreach ($_SESSION['cart'] as $key => $value) {
+        $sql = "UPDATE product SET product_quantity = product_quantity - ? WHERE product_id = ?";
+        $stmt = $dbh->connection()->prepare($sql);
+        $stmt->execute([$value['product_quantity'], $value['product_id']]);
+    }
+
+
+    // unset session cart
+    unset($_SESSION['cart']);
+
+    // redirect to orderConfirm page
+    header("Location: orderConfirm.php?orderId=$last_id");
+
+}
+
+// if is submit and session is not set, make variable for timestamp
+if (isset($_POST['submit']) && !isset($_SESSION['userId'])) {
+    $timestamp = date("Y-m-d H:i:s");
+
+    // insert into orders table
+    $sql = "INSERT INTO orders (orders_timestamp) VALUES (?)";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$timestamp]);
+
+    // select order with same timestamp and user_id;
+    $sql = "SELECT * FROM orders WHERE orders_timestamp = ?";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$timestamp]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $last_id = $result['orders_id'];
+
+    // insert into order_product table
+    foreach ($_SESSION['cart'] as $key => $value) {
+        $sql = "INSERT INTO order_product (orders_id, product_id, order_product_quantity) VALUES (?, ?, ?)";
+        $stmt = $dbh->connection()->prepare($sql);
+        $stmt->execute([$last_id, $value['product_id'], $value['product_quantity']]);
+    }
+
+    // remove quantity from product table quantity
+    foreach ($_SESSION['cart'] as $key => $value) {
+        $sql = "UPDATE product SET product_quantity = product_quantity - ? WHERE product_id = ?";
+        $stmt = $dbh->connection()->prepare($sql);
+        $stmt->execute([$value['product_quantity'], $value['product_id']]);
+    }
+
+    // insert address in order_adress table database
+    $sql = "INSERT INTO order_address (orders_id, order_address_streetname, order_address_housenumber, order_address_postalcode, order_address_city) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$last_id, $_POST['streetname'], $_POST['housenumber'], $_POST['postalcode'], $_POST['city']]);
+
+    // insert user firtsname and lastname and email in order_user table database
+    $sql = "INSERT INTO order_user (orders_id, order_user_firstname, order_user_lastname, order_user_email) VALUES (?, ?, ?, ?)";
+    $stmt = $dbh->connection()->prepare($sql);
+    $stmt->execute([$last_id, $_POST['firstname'], $_POST['lastname'], $_POST['email']]);
+
+    // unset session cart
+    unset($_SESSION['cart']);
+
+    // redirect to orderConfirm page
+    header("Location: orderConfirm.php");
+
+}
+
+
+    
+
+
+
+
+
+
+
 ?>
 
 <body>
@@ -127,34 +225,34 @@ include 'incs/navBar.php';
             <hr>
             <form class=\"login-form\" method=\"post\" action=\"\">
             <div class=\"form-control\">
-                <input type=\"text\" name=\"firstname\" placeholder=\"Voornaam\">
+                <input type=\"text\" name=\"firstname\" placeholder=\"Voornaam\" required>
                 <i class=\"fas fa-id-card\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"lastname\" placeholder=\"Achternaam\">
+                <input type=\"text\" name=\"lastname\" placeholder=\"Achternaam\" required>
                 <i class=\"fas fa-id-card\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"email\" placeholder=\"E-mail\">
+                <input type=\"text\" name=\"email\" placeholder=\"E-mail\" required>
                 <i class=\"fas fa-at\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"streetname\" placeholder=\"Straatnaam\">
+                <input type=\"text\" name=\"streetname\" placeholder=\"Straatnaam\" required>
                 <i class=\"fas fa-road\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"housenumber\" placeholder=\"Huisnummer\">
+                <input type=\"text\" name=\"housenumber\" placeholder=\"Huisnummer\" required>
                 <i class=\"fas fa-hashtag\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"postalcode\" placeholder=\"Postcode\">
-                <i class=\"fas fa-street-view\"></i>
+                <input type=\"text\" name=\"postalcode\" placeholder=\"Postcode\" required>
+                <i class=\"fas fa-map-marker-alt\"></i>
             </div>
             <div class=\"form-control\">
-                <input type=\"text\" name=\"city\" placeholder=\"Stad\">
+                <input type=\"text\" name=\"city\" placeholder=\"Stad\" required>
                 <i class=\"fas fa-city\"></i>
             </div>
-            <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i>Bestellen</a>
+            <button name=\"submit\" type=\"submit\" id=\"submit\" class=\"submit-cart\"><i class=\"fa fa-shopping-cart\"></i>Bestellen</button>
             </form>
 			</div>
 		</div>
@@ -168,34 +266,34 @@ include 'incs/navBar.php';
                         <hr>
                         <form class=\"login-form\" method=\"post\" action=\"\">
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"firstname\" placeholder=\"Voornaam\" value=\"$userFirstname\" required>
+                            <input type=\"text\" name=\"firstname\" placeholder=\"Voornaam\" value=\"$userFirstname\" required disabled>
                             <i class=\"fas fa-id-card\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"lastname\" placeholder=\"Achternaam\" value=\"$userLastname\" required>
+                            <input type=\"text\" name=\"lastname\" placeholder=\"Achternaam\" value=\"$userLastname\" required disabled>
                             <i class=\"fas fa-id-card\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"email\" placeholder=\"E-mail\" value=\"$userEmail\" required>
+                            <input type=\"text\" name=\"email\" placeholder=\"E-mail\" value=\"$userEmail\" required disabled>
                             <i class=\"fas fa-at\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"streetname\" placeholder=\"Straatnaam\" value=\"$userStreetName\" required>
+                            <input type=\"text\" name=\"streetname\" placeholder=\"Straatnaam\" value=\"$userStreetName\" required disabled>
                             <i class=\"fas fa-road\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"housenumber\" placeholder=\"Huisnummer\" value=\"$userHouseNumber\" required>
+                            <input type=\"text\" name=\"housenumber\" placeholder=\"Huisnummer\" value=\"$userHouseNumber\" required disabled>
                             <i class=\"fas fa-hashtag\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"postalcode\" placeholder=\"Postcode\" value=\"$userPostalCode\" required>
-                            <i class=\"fas fa-street-view\"></i>
+                            <input type=\"text\" name=\"postalcode\" placeholder=\"Postcode\" value=\"$userPostalCode\" required disabled>
+                            <i class=\"fas fa-map-marker-alt\"></i>
                         </div>
                         <div class=\"form-control\">
-                            <input type=\"text\" name=\"city\" placeholder=\"Stad\" value=\"$userCity\" required>
+                            <input type=\"text\" name=\"city\" placeholder=\"Stad\" value=\"$userCity\" required disabled>
                             <i class=\"fas fa-city\"></i>
                         </div>
-                        <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i>Bestellen</a>
+                        <button name=\"submit\" type=\"submit\" id=\"submit\" class=\"submit-cart\"><i class=\"fa fa-shopping-cart\"></i>Bestellen</button>
                         </form>
                         </div>
                     </div>

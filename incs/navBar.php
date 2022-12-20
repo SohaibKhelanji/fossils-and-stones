@@ -62,10 +62,10 @@
                   <a href=\"#\">Contact</a>
                </li>
                <li class=\"menu-item menu-item-has-children\">
-                  <a href=\"profile.php\" data-toggle=\sub-menu\">Admin<i class=\"plus\"></i></a>
+                  <a href=\"#\" data-toggle=\sub-menu\">Admin<i class=\"plus\"></i></a>
                   <ul class=\"sub-menu\">
                       <li class=\"menu-item\"><a href=\"usersAdmin.php\">Gebruikers</a></li>
-                      <li class=\"menu-item\"><a href=\"#\">Bestellingen</a></li>
+                      <li class=\"menu-item\"><a href=\"ordersAdmin.php\">Bestellingen</a></li>
                       <li class=\"menu-item\"><a href=\"logout.php\">Uitloggen</a></li>
                   </ul>
                </li>
