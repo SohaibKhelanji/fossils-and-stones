@@ -24,7 +24,7 @@ include 'incs/navBar.php';
 </div>
 
 <form class="search-bar" methode="post" action="">
-    <input id="searchOrderAdmin" class="input-search" type="text" name="searchOrderAdmin" placeholder="Zoek een bestelling">
+    <input id="searchOrderProcessedAdmin" class="input-search" type="text" name="searchOrderProcessedAdmin" placeholder="Zoek een bestelling">
     <button type="submit" name="submit-search"><i class="fas fa-search"></i></button>
 </form>
 

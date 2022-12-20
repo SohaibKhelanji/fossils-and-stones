@@ -72,6 +72,7 @@
   var searchUser = document.getElementsByName("searchUser")[0];
   var searchOrder = document.getElementsByName("searchOrder")[0];
   var searchOrderAdmin = document.getElementsByName("searchOrderAdmin")[0];
+  var searchOrderProcessedAdmin = document.getElementsByName("searchOrderProcessedAdmin")[0];
   var page = window.location.pathname;
   var page = page.split("/");
   var page = page[page.length - 1];
@@ -151,6 +152,21 @@ if (page == "ordersAdmin.php") {
 
   }
 }
+
+if (page == "ordersProcessedAdmin.php") {
+
+
+  if (searchOrderProcessedAdmin.value == "") {
+
+    document.getElementById("all-orders").style.display = "block";
+
+  } else {
+
+    document.getElementById("all-orders").style.display = "none";
+
+  }
+}
+
 
 }, 100);
 
@@ -257,6 +273,62 @@ $(document).ready(function(){
             $.ajax({
 
                 url:"ajax/orderSearch.php",
+                method:"post",
+                data:{search:search},
+                success:function(response){
+                    $("#search-results-orders").html(response);
+                }
+
+            });
+
+          }else{
+
+              $("#search-results-orders").html("");
+
+          }
+
+    });
+
+  });
+
+  $(document).ready(function(){
+
+    $("#searchOrderAdmin").keyup(function(){
+
+        var search = $(this).val();
+
+        if(search != ''){
+            $.ajax({
+
+                url:"ajax/orderSearchAdmin.php",
+                method:"post",
+                data:{search:search},
+                success:function(response){
+                    $("#search-results-orders").html(response);
+                }
+
+            });
+
+          }else{
+
+              $("#search-results-orders").html("");
+
+          }
+
+    });
+
+  });
+
+  $(document).ready(function(){
+
+    $("#searchOrderProcessedAdmin").keyup(function(){
+
+        var search = $(this).val();
+
+        if(search != ''){
+            $.ajax({
+
+                url:"ajax/orderSearchProcessedAdmin.php",
                 method:"post",
                 data:{search:search},
                 success:function(response){
