@@ -66,7 +66,7 @@ include 'incs/navBar.php';
 
 
 <div id="add-product-container">
-    <div class="row">
+    <div class="title-row">
         <div class="col-md-12">
             <h1 class="text-center">Product toevoegen</h1>
         </div>

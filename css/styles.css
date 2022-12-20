@@ -1847,6 +1847,45 @@ button.submit {
 
 }
 
+/* responsive */
+
+@media screen and (max-width: 942px) {
+    #add-product-container  {
+        width: 80%;
+    }
+    
+    #add-product-container form {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .row {
+       width: 125%;
+    }
+
+    #add-product-container h1{
+        margin-top: 140px; ;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #add-product-container .form-control {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #add-product-container .form-control {
+        width: 100%;
+    }
+
+    #add-product-container h1{
+        margin-top: 170px; ;
+    }
+}
+
+
 
 
 

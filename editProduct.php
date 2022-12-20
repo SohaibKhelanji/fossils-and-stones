@@ -121,7 +121,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $productCategoryName = $row['category_name'];
 ?>
 
-<div class="row">
+<div class="titlerow">
         <div class="col-md-12">
             <h1 class="text-center">Product bewerken</h1>
         </div>
