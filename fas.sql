@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 02 dec 2022 om 11:32
--- Serverversie: 10.4.24-MariaDB
--- PHP-versie: 8.1.6
+-- Gegenereerd op: 19 dec 2022 om 20:04
+-- Serverversie: 10.4.27-MariaDB
+-- PHP-versie: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,17 +33,19 @@ CREATE TABLE `product` (
   `product_price` int(11) NOT NULL,
   `product_category` int(11) NOT NULL,
   `product_description` longtext NOT NULL,
-  `product_quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `product_quantity` int(11) DEFAULT NULL,
+  `product_availability` varchar(5) NOT NULL DEFAULT 'true'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_category`, `product_description`, `product_quantity`) VALUES
-(1, 'Kana-Boon', 150, 1, 'Mooie steen', 1000),
-(2, 'See Tinh', 120, 2, 'Mooie steen', 1000),
-(3, 'Namida', 200, 1, 'Mooie steen', 1000);
+INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_category`, `product_description`, `product_quantity`, `product_availability`) VALUES
+(1, 'Kana-Boon', 150, 1, 'Mooie steen', 1000, 'true'),
+(2, 'See Tinh', 120, 2, 'Mooie steen', 1000, 'true'),
+(3, 'Namida', 200, 1, 'Mooie steen', 1000, 'true'),
+(32, 'Snowglobe', 300, 2, 'Een mooie steen', 1000, 'false');
 
 -- --------------------------------------------------------
 
@@ -54,7 +56,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_c
 CREATE TABLE `product_category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `product_category`
@@ -74,7 +76,7 @@ CREATE TABLE `product_image` (
   `image_id` int(11) NOT NULL,
   `image_name` varchar(250) NOT NULL,
   `product_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `product_image`
@@ -83,7 +85,8 @@ CREATE TABLE `product_image` (
 INSERT INTO `product_image` (`image_id`, `image_name`, `product_id`) VALUES
 (1, 'kanaboon.png', 1),
 (2, 'seetinh.png', 2),
-(3, 'namida.png', 3);
+(3, 'namida.png', 3),
+(19, '63a0b3225b41a4.13899192.png', 32);
 
 -- --------------------------------------------------------
 
@@ -98,14 +101,14 @@ CREATE TABLE `user` (
   `user_email` varchar(250) NOT NULL,
   `user_password` varchar(250) NOT NULL,
   `user_role` varchar(10) DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_role`) VALUES
-(4, 'Sohaib', 'Khelanji', 'Sohaib1411@hotmail.com', '$2y$10$drmEwlnSLlbEqqD7XoY.YejRZoGEIg9gmiUMFzZYzC2/WwEvT7WwW', 'user'),
+(4, 'Sohaib', 'Khelanji', 'test@test.nl', '$2y$10$drmEwlnSLlbEqqD7XoY.YejRZoGEIg9gmiUMFzZYzC2/WwEvT7WwW', 'user'),
 (5, 'Admin', 'FAS', 'Admin@fossilsandstones.nl', '$2y$10$8X202Sywqa9ZYSaiZT04be36az1QeAIj7hPJcRq76otMn8iMXWKf.', 'admin');
 
 -- --------------------------------------------------------
@@ -121,7 +124,7 @@ CREATE TABLE `user_address` (
   `address_postalcode` varchar(10) NOT NULL,
   `address_city` varchar(250) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user_address`
@@ -176,19 +179,19 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT voor een tabel `product_category`
 --
 ALTER TABLE `product_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT voor een tabel `user`
