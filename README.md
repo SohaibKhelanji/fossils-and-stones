@@ -39,4 +39,4 @@ If you would like to contribute code, please create a new branch and open a pull
 ---
 
 ## License
-This project is licensed under Fossils and Stones b.v. all rights reserved.
+This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE. Please see the [LICENSE](LICENSE) file for more information.
