@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'incs/header.php';
 include 'classes/dbh.php';
 
@@ -7,23 +7,23 @@ $dbh = new Dbh();
 
 <body>
 
-<?php 
-include 'incs/navBar.php';
-?>
-<div id="homepage-banner"></div>
+  <?php
+  include 'incs/navBar.php';
+  ?>
+  <div id="homepage-banner"></div>
 
-<h2 class="homepage-title">Onze producten</h2>
+  <h2 class="homepage-title">Onze producten</h2>
 
-<div id="products-wrapper">
- <?php
-$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product_availability = 'true' AND product_quantity > 0 ORDER BY rand() LIMIT 12;");
+  <div id="products-wrapper">
+    <?php
+    $stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product_availability = 'true' AND product_quantity > 0 ORDER BY rand() LIMIT 12;");
 
-$stmt->execute();
+    $stmt->execute();
 
-$result = $stmt->fetchAll();
+    $result = $stmt->fetchAll();
 
- foreach ($result as $row) {
-     echo "
+    foreach ($result as $row) {
+      echo "
     <div class=\"product\">
     <div class=\"imgbox\">
       <img src=\"imgs/$row[image_name]\">
@@ -37,16 +37,16 @@ $result = $stmt->fetchAll();
     </div>
   </div>
     ";
-   }
+    }
 
-?>
+    ?>
 
-</div>
+  </div>
 
-<div id="more-products">
-<a href="products.php" id="more-products-href">Bekijk alle producten</a>
-</div>
+  <div id="more-products">
+    <a href="products.php" id="more-products-href">Bekijk alle producten</a>
+  </div>
 
-<?php
-include 'incs/footer.php';
-?>
+  <?php
+  include 'incs/footer.php';
+  ?>

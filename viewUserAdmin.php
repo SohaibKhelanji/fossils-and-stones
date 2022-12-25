@@ -5,7 +5,7 @@ include 'classes/dbh.php';
 
 if (isset($_SESSION['userId']) && $userRole == "user") {
     header("Location: 404.php");
-}elseif(!isset($_SESSION['userId'])){
+} elseif (!isset($_SESSION['userId'])) {
     header("Location: 404.php");
 }
 
@@ -16,34 +16,34 @@ $viewUserId = $_GET['id'];
 
 <body>
 
-<?php 
-include 'incs/navBar.php';
-?>
+    <?php
+    include 'incs/navBar.php';
+    ?>
 
-<div id="view-user-container">
-<?php
+    <div id="view-user-container">
+        <?php
 
-// get user via id and adress info via user id and show it in a table
+        // get user via id and adress info via user id and show it in a table
 
-$stmt = $dbh->connection()->prepare('SELECT * FROM user INNER JOIN user_address ON user.user_id = user_address.user_id WHERE user.user_id= :viewUserId;');
-$stmt->bindParam(':viewUserId', $viewUserId);
-$stmt->execute();
-$user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $dbh->connection()->prepare('SELECT * FROM user INNER JOIN user_address ON user.user_id = user_address.user_id WHERE user.user_id= :viewUserId;');
+        $stmt->bindParam(':viewUserId', $viewUserId);
+        $stmt->execute();
+        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($user as $user) {
-    $databaseId = $user['user_id'];
-    $Firstname = $user['user_firstname'];
-    $Lastname = $user['user_lastname'];
-    $Email = $user['user_email'];
-    $Role = $user['user_role'];
-    $Street = $user['address_streetname'];
-    $Number = $user['address_housenumber'];
-    $PostalCode = $user['address_postalcode'];
-    $City = $user['address_city'];
+        foreach ($user as $user) {
+            $databaseId = $user['user_id'];
+            $Firstname = $user['user_firstname'];
+            $Lastname = $user['user_lastname'];
+            $Email = $user['user_email'];
+            $Role = $user['user_role'];
+            $Street = $user['address_streetname'];
+            $Number = $user['address_housenumber'];
+            $PostalCode = $user['address_postalcode'];
+            $City = $user['address_city'];
 
-    //    echo all user info in disabled inputs
+            //    echo all user info in disabled inputs
 
-    echo "
+            echo "
     <form class=\"login-form\" action=\"\">
     <div class=\"form-control\">
                 <input type=\"text\" value=\"$Firstname\" disabled>
@@ -80,12 +80,12 @@ foreach ($user as $user) {
     </form>
 
     ";
-}
-?>
+        }
+        ?>
 
 
-</div>
+    </div>
 
-<?php
-include 'incs/footer.php';
-?>
+    <?php
+    include 'incs/footer.php';
+    ?>

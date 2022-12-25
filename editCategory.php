@@ -5,7 +5,7 @@ include 'classes/dbh.php';
 
 if (isset($_SESSION['userId']) && $userRole == "user") {
     header("Location: 404.php");
-}elseif(!isset($_SESSION['userId'])){
+} elseif (!isset($_SESSION['userId'])) {
     header("Location: 404.php");
 }
 
@@ -29,39 +29,39 @@ if ($stmt->rowCount() < 1) {
 
 <body>
 
-<?php 
-include 'incs/navBar.php';
-?>
+    <?php
+    include 'incs/navBar.php';
+    ?>
 
 
-<div id="add-category-container">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center"><?php echo $categoryName?> bewerken</h1>
+    <div id="add-category-container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center"><?php echo $categoryName ?> bewerken</h1>
+            </div>
         </div>
-    </div>
-    <form class="login-form" method="post" action="">
+        <form class="login-form" method="post" action="">
             <div class="form-control">
                 <input type="text" name="categoryName" id="categoryName" placeholder="Naam categorie" value="<?php echo $categoryName; ?>" required>
                 <i class="fas fa-font"></i>
             </div>
             <button class="submit" type="submit" name="submit">Bewerken</button>
         </form>
-</div>
+    </div>
 
 
 
-<?php
-if (isset($_POST['submit'])) {
-    $categoryName = $_POST['categoryName'];
-    $stmt = $dbh->connection()->prepare("UPDATE product_category SET category_name = :categoryName WHERE category_id = :categoryId");
-    $stmt->bindParam(':categoryName', $categoryName);
-    $stmt->bindParam(':categoryId', $categoryId);
-    $stmt->execute();
-    header("Location: categories.php");
-}
-?>
+    <?php
+    if (isset($_POST['submit'])) {
+        $categoryName = $_POST['categoryName'];
+        $stmt = $dbh->connection()->prepare("UPDATE product_category SET category_name = :categoryName WHERE category_id = :categoryId");
+        $stmt->bindParam(':categoryName', $categoryName);
+        $stmt->bindParam(':categoryId', $categoryId);
+        $stmt->execute();
+        header("Location: categories.php");
+    }
+    ?>
 
-<?php
-include 'incs/footer.php';
-?>
+    <?php
+    include 'incs/footer.php';
+    ?>

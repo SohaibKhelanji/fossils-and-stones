@@ -5,10 +5,10 @@ if (isset($_SESSION['userId'])) {
 
     if (isset($_SESSION['userId']) && $userRole == "user") {
         header("Location: 404.php");
-    }elseif(!isset($_SESSION['userId'])){
+    } elseif (!isset($_SESSION['userId'])) {
         header("Location: 404.php");
     }
-}else{
+} else {
     header("Location: 404.php");
 }
 
@@ -31,9 +31,8 @@ if (isset($_POST['search'])) {
         </div>
         <br>
         ";
-    } 
-}
-else {
+    }
+} else {
     echo "
     <div id=\"no-results\">
         <h2>Geen resultaten gevonden</h2>
@@ -41,5 +40,3 @@ else {
     </div>
         ";
 }
-
-

@@ -41,7 +41,6 @@ if (isset($_POST['cart'])) {
         );
         $_SESSION['cart'][] = $cart;
     }
-
 }
 
 if (isset($_GET['action'])) {
@@ -88,7 +87,7 @@ if (isset($_POST['submit']) && isset($_SESSION['userId'])) {
     $stmt = $dbh->connection()->prepare($sql);
     $stmt->execute([$user_id, $timestamp]);
 
-// select order with same timestamp and user_id;
+    // select order with same timestamp and user_id;
     $sql = "SELECT * FROM orders WHERE user_id = ? AND orders_timestamp = ?";
     $stmt = $dbh->connection()->prepare($sql);
     $stmt->execute([$user_id, $timestamp]);
@@ -116,7 +115,6 @@ if (isset($_POST['submit']) && isset($_SESSION['userId'])) {
 
     // redirect to orderConfirm page
     header("Location: orderConfirm.php?orderId=$last_id");
-
 }
 
 // if is submit and session is not set, make variable for timestamp
@@ -164,11 +162,10 @@ if (isset($_POST['submit']) && !isset($_SESSION['userId'])) {
 
     // redirect to orderConfirm page
     header("Location: orderConfirm.php");
-
 }
 
 
-    
+
 
 
 
@@ -180,17 +177,17 @@ if (isset($_POST['submit']) && !isset($_SESSION['userId'])) {
 
 <body>
 
-<?php
-include 'incs/navBar.php';
-?>
+    <?php
+    include 'incs/navBar.php';
+    ?>
 
-<div class="wrapper">
-		<h1>Winkelwagen</h1>
-		<div class="project">
-			<div class="shop">
-                <?php 
+    <div class="wrapper">
+        <h1>Winkelwagen</h1>
+        <div class="project">
+            <div class="shop">
+                <?php
 
-                $total= 0;
+                $total = 0;
 
                 if (!empty($_SESSION['cart'])) {
 
@@ -213,7 +210,6 @@ include 'incs/navBar.php';
 
                         $total = $total + ($value['product_price'] * $value['product_quantity']);
                         $totalPrice = number_format($total, 2);
-
                     }
                     $totalPrice = $totalPrice;
 
@@ -300,26 +296,25 @@ include 'incs/navBar.php';
                 </div> 
                         ";
                     }
-                 } else {
-                        echo "<h3 class= \"empty-cart-text\">Winkelwagen is leeg</h3>";
-                    }
+                } else {
+                    echo "<h3 class= \"empty-cart-text\">Winkelwagen is leeg</h3>";
+                }
                 ?>
 
 
 
-<!-- button that unsets session cart -->
-<!-- <form action="shoppingCart.php" method="post">
+                <!-- button that unsets session cart -->
+                <!-- <form action="shoppingCart.php" method="post">
     <input type="submit" name="empty" value="Empty Cart">
 </form>
 
-<?php 
+<?php
 if (isset($_POST['empty'])) {
     unset($_SESSION['cart']);
     header("Location: shoppingCart.php");
 }
 ?> -->
 
-<?php
-include 'incs/footer.php';
-?>
-
+                <?php
+                include 'incs/footer.php';
+                ?>

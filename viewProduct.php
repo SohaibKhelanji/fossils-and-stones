@@ -1,32 +1,33 @@
-<?php 
+<?php
 include 'incs/header.php';
 include 'classes/dbh.php';
 
 $dbh = new Dbh();
 
 ?>
+
 <body>
-<?php 
-include 'incs/navBar.php';
-?>
+    <?php
+    include 'incs/navBar.php';
+    ?>
 
-<?php
-$id = $_GET['id'];
-$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product.product_id = $id;");
-
-
-$stmt->execute();
-
-$result = $stmt->fetchAll();
+    <?php
+    $id = $_GET['id'];
+    $stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_category ON product.product_category = product_category.category_id INNER JOIN product_image ON product_image.product_id = product.product_id WHERE product.product_id = $id;");
 
 
-$rowCount = $stmt->rowCount();
+    $stmt->execute();
 
-if (!$rowCount < 1) {
+    $result = $stmt->fetchAll();
 
-    foreach ($result as $row) {
-        if ($row['product_availability'] == 'true' && $row['product_quantity'] > 0) {
-            echo "
+
+    $rowCount = $stmt->rowCount();
+
+    if (!$rowCount < 1) {
+
+        foreach ($result as $row) {
+            if ($row['product_availability'] == 'true' && $row['product_quantity'] > 0) {
+                echo "
         <div class = \"main-wrapper\">
         <div class = \"container\">
             <div class = \"product-div\">
@@ -56,15 +57,15 @@ if (!$rowCount < 1) {
         </div>
     </div>
         ";
-        } else {
-            header("Location: 400.php");
+            } else {
+                header("Location: 400.php");
+            }
         }
-    }
-    }else{
+    } else {
         header("Location: 400.php");
     }
-?>
+    ?>
 
-<?php
-include 'incs/footer.php';
-?>
+    <?php
+    include 'incs/footer.php';
+    ?>

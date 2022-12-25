@@ -14,8 +14,4 @@ class dbh
             die();
         }
     }
-
 }
-
-
-

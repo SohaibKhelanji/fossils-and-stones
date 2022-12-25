@@ -5,7 +5,7 @@ include 'classes/dbh.php';
 
 if (isset($_SESSION['userId']) && $userRole == "user") {
     header("Location: 404.php");
-}elseif(!isset($_SESSION['userId'])){
+} elseif (!isset($_SESSION['userId'])) {
     header("Location: 404.php");
 }
 
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     $productCategory = $_POST['productCategory'];
     if (!isset($_POST['productAvailability'])) {
         $productAvailability = "false";
-    }else {
+    } else {
         $productAvailability = $_POST['productAvailability'];
     }
     $productImage = $_FILES['productImage']['name'];
@@ -101,27 +101,27 @@ include 'incs/navBar.php';
 
 <div id="add-product-container">
 
-<?php
-$stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_image ON product_image.product_id = product.product_id  WHERE product.product_id = :productId");
-$stmt->bindParam(':productId', $productId);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$productName = $row['product_name'];
-$productDescription = $row['product_description'];
-$productPrice = $row['product_price'];
-$productImage = $row['image_name'];
-$productCategory = $row['product_category'];
-$productStock = $row['product_quantity'];
-$productAvailability = $row['product_availability'];
-// select category name
-$stmt = $dbh->connection()->prepare("SELECT * FROM product_category WHERE category_id = :productCategory");
-$stmt->bindParam(':productCategory', $productCategory);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$productCategoryName = $row['category_name'];
-?>
+    <?php
+    $stmt = $dbh->connection()->prepare("SELECT * FROM product INNER JOIN product_image ON product_image.product_id = product.product_id  WHERE product.product_id = :productId");
+    $stmt->bindParam(':productId', $productId);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $productName = $row['product_name'];
+    $productDescription = $row['product_description'];
+    $productPrice = $row['product_price'];
+    $productImage = $row['image_name'];
+    $productCategory = $row['product_category'];
+    $productStock = $row['product_quantity'];
+    $productAvailability = $row['product_availability'];
+    // select category name
+    $stmt = $dbh->connection()->prepare("SELECT * FROM product_category WHERE category_id = :productCategory");
+    $stmt->bindParam(':productCategory', $productCategory);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $productCategoryName = $row['category_name'];
+    ?>
 
-<div class="titlerow">
+    <div class="titlerow">
         <div class="col-md-12">
             <h1 class="text-center">Product bewerken</h1>
         </div>
@@ -129,38 +129,40 @@ $productCategoryName = $row['category_name'];
     <div class="row">
         <div class="col-md-12">
             <form action="" class="login-form" method="post" enctype="multipart/form-data">
-            <img src="<?php echo "imgs/$productImage"?>" alt="Product foto" id="productPictureDisplay" onclick="triggerClick()">
-        <input type="file" id="productPictureUpload" name="productImage" onchange="displayImage(this)" value="" style="display:none ;">
-            <div class="form-control">
-                <input type="text" name="productName" id="productName" placeholder="Naam product" value="<?php echo $productName ?>" required>
-                <i class="fas fa-font"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="productStock" id="productStock" placeholder="Voorraad product" value="<?php echo $productStock?>" required>
-                <i class="fas fa-boxes"></i>
-            </div>
-            <div class="form-control">
-                <textarea name="productDescription" id="productDescription" cols="55" rows="10" placeholder="Beschrijving product" resize="none" required><?php echo $productDescription ?></textarea>
-            </div>
-            <div class="form-control">
-                <select name="productCategory" id="productCategory" required>
-                    <option value="<?php echo $productCategory?>"><?php echo $productCategoryName?></option>
-                    <?php
-                    $stmt = $dbh->connection()->prepare("SELECT * FROM product_category");
-                    $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $categoryId = $row['category_id'];
-                        $categoryName = $row['category_name'];
-                        echo "<option value='$categoryId'>$categoryName</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <br>
-            <label for="productAvailability">Product beschikbaarheid</label>
-            <br>
-            <input type="checkbox" name="productAvailability" id="productAvailability" onclick="checkAvailability()" value="<?php echo $productAvailability?>" <?php if($productAvailability == "true"){echo "checked";}?>>
-            <button class="submit" type="submit" name="submit">Bewerken</button>
+                <img src="<?php echo "imgs/$productImage" ?>" alt="Product foto" id="productPictureDisplay" onclick="triggerClick()">
+                <input type="file" id="productPictureUpload" name="productImage" onchange="displayImage(this)" value="" style="display:none ;">
+                <div class="form-control">
+                    <input type="text" name="productName" id="productName" placeholder="Naam product" value="<?php echo $productName ?>" required>
+                    <i class="fas fa-font"></i>
+                </div>
+                <div class="form-control">
+                    <input type="text" name="productStock" id="productStock" placeholder="Voorraad product" value="<?php echo $productStock ?>" required>
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <div class="form-control">
+                    <textarea name="productDescription" id="productDescription" cols="55" rows="10" placeholder="Beschrijving product" resize="none" required><?php echo $productDescription ?></textarea>
+                </div>
+                <div class="form-control">
+                    <select name="productCategory" id="productCategory" required>
+                        <option value="<?php echo $productCategory ?>"><?php echo $productCategoryName ?></option>
+                        <?php
+                        $stmt = $dbh->connection()->prepare("SELECT * FROM product_category");
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $categoryId = $row['category_id'];
+                            $categoryName = $row['category_name'];
+                            echo "<option value='$categoryId'>$categoryName</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <br>
+                <label for="productAvailability">Product beschikbaarheid</label>
+                <br>
+                <input type="checkbox" name="productAvailability" id="productAvailability" onclick="checkAvailability()" value="<?php echo $productAvailability ?>" <?php if ($productAvailability == "true") {
+                                                                                                                                                                        echo "checked";
+                                                                                                                                                                    } ?>>
+                <button class="submit" type="submit" name="submit">Bewerken</button>
             </form>
         </div>
     </div>

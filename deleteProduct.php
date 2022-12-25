@@ -5,7 +5,7 @@ include 'classes/dbh.php';
 
 if (isset($_SESSION['userId']) && $userRole == "user") {
     header("Location: 404.php");
-}elseif(!isset($_SESSION['userId'])){
+} elseif (!isset($_SESSION['userId'])) {
     header("Location: 404.php");
 }
 
@@ -28,8 +28,7 @@ if (isset($_POST['yes'])) {
     $stmt->bindParam(':productId', $productId);
     $stmt->execute();
     header("Location: products.php");
-
-}elseif(isset($_POST['no'])){
+} elseif (isset($_POST['no'])) {
     header("Location: products.php");
 }
 
@@ -41,25 +40,25 @@ include 'incs/navBar.php';
 
 <body>
 
-<div id="delete-category-message">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center"><?php echo $productName?> Verwijderen?</h1>
+    <div id="delete-category-message">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center"><?php echo $productName ?> Verwijderen?</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <form action="deleteProduct.php?id=<?php echo $productId; ?>" method="POST">
-                <p>Weet u zeker dat u dit product wilt verwijderen?</p>
-                <br>
-                <button type="submit" name="yes" class="message-button-confirm">Bevestigen</button>
-                <button type="submit" name="no" class="message-button-cancel">Anuleren</button>
-            </form>
+        <div class="row">
+            <div class="col-12">
+                <form action="deleteProduct.php?id=<?php echo $productId; ?>" method="POST">
+                    <p>Weet u zeker dat u dit product wilt verwijderen?</p>
+                    <br>
+                    <button type="submit" name="yes" class="message-button-confirm">Bevestigen</button>
+                    <button type="submit" name="no" class="message-button-cancel">Anuleren</button>
+                </form>
+            </div>
         </div>
+
     </div>
 
-</div>
-
-<?php 
-include 'incs/footer.php';
-?>
+    <?php
+    include 'incs/footer.php';
+    ?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'incs/header.php';
 ?>
 
@@ -8,10 +8,10 @@ include 'incs/navBar.php';
 
 <body>
 
-<div class="centered">
-    <img src="imgs/400.svg" alt="Product Not Found">
-</div>
+    <div class="centered">
+        <img src="imgs/400.svg" alt="Product Not Found">
+    </div>
 
-<?php
-include 'incs/footer.php';
-?>
+    <?php
+    include 'incs/footer.php';
+    ?>

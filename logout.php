@@ -12,9 +12,7 @@ if (isset($_SESSION['userId'])) {
     unset($_SESSION['cart']);
 
     header("location: login.php");
-
-}
-else {
+} else {
     header("location: index.php");
     exit();
 }

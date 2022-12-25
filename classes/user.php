@@ -3,16 +3,17 @@
 class User extends dbh
 {
 
- Private $firstname;
- Private $lastname;
- Private $email;
- private $streetname;
- private $housenumber;
- private $postalcode;
- private $city;
- Private $password;
+    private $firstname;
+    private $lastname;
+    private $email;
+    private $streetname;
+    private $housenumber;
+    private $postalcode;
+    private $city;
+    private $password;
 
-    public function __construct ($firstname, $lastname, $email,  $streetname, $housenumber, $postalcode, $city, $password) {
+    public function __construct($firstname, $lastname, $email,  $streetname, $housenumber, $postalcode, $city, $password)
+    {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
@@ -23,30 +24,29 @@ class User extends dbh
         $this->password = $password;
     }
 
-    protected function userExists() {
+    protected function userExists()
+    {
         $stmt = $this->connection()->prepare('SELECT user_email FROM user WHERE user_email= ?;');
 
-        if(!$stmt->execute(array($this->email))) {
-        $stmt = null;
-        header("location: register.php?error=stmtUserExistsFailed");
-        exit();
-        }
-        else {
+        if (!$stmt->execute(array($this->email))) {
+            $stmt = null;
+            header("location: register.php?error=stmtUserExistsFailed");
+            exit();
+        } else {
             $userExists = false;
 
-            if(!$stmt->rowCount() > 0) {
+            if (!$stmt->rowCount() > 0) {
                 $userExists = true;
             }
 
             return $userExists;
         }
-
     }
 
 
     public function createUser()
     {
-            $userExists = $this->userExists();
+        $userExists = $this->userExists();
         if ($userExists == 1) {
             $stmt = $this->connection()->prepare('INSERT INTO user (user_firstname, user_lastname, user_email, user_password) VALUES (?, ?, ?, ?);');
             $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
@@ -67,25 +67,25 @@ class User extends dbh
             }
 
             $userId = $stmt2->fetch(PDO::FETCH_ASSOC);
-            
+
 
             $stmt3 = $this->connection()->prepare('INSERT INTO user_address (address_streetname, address_housenumber, address_postalcode, address_city, user_id) VALUES (?, ?, ?, ?, ?);');
-           
+
             if (!$stmt3->execute(array($this->streetname, $this->housenumber, $this->postalcode, $this->city, $userId['user_id']))) {
                 $stmt = null;
                 header("location: register.php?error=stmt3CreateUserFailed");
                 exit();
             }
 
-            $stmt3= null;
+            $stmt3 = null;
 
             header("location: register.php?error=none");
-
         }
     }
 
-    public function loginUser() {
-        $userExists=  $this->userExists();
+    public function loginUser()
+    {
+        $userExists =  $this->userExists();
 
         if ($userExists == 0) {
             $stmt = $this->connection()->prepare('SELECT user_password FROM user WHERE user_email= ?;');
@@ -140,29 +140,29 @@ class User extends dbh
                 $_SESSION["userPostalCode"] = $user["address_postalcode"];
                 $_SESSION["userCity"] = $user["address_city"];
                 $_SESSION["userPassword"] = $user["user_password"];
-    
 
-            $stmt = null;
-            }
-            else {
+
+                $stmt = null;
+            } else {
                 $stmt = null;
                 header("location: login.php?error=wrongLoginCredentials");
                 exit();
             }
-        }
-        else {
+        } else {
             header("location: login.php?error=userNotFound");
             exit();
         }
     }
 
-    public function logoutUser() {
+    public function logoutUser()
+    {
         session_start();
         unset($_SESSION['userId']);
     }
 
-    public function insertResetCode($resetCode) {
-        $userExists=  $this->userExists();
+    public function insertResetCode($resetCode)
+    {
+        $userExists =  $this->userExists();
 
         if ($userExists == 0) {
             $stmt = $this->connection()->prepare('UPDATE user SET resetcode = ? WHERE email = ?;');
@@ -178,8 +178,9 @@ class User extends dbh
         }
     }
 
-    public function getUserFirstname() {
-        $userExists=  $this->userExists();
+    public function getUserFirstname()
+    {
+        $userExists =  $this->userExists();
 
         if ($userExists == 0) {
             $stmt = $this->connection()->prepare('SELECT * FROM users WHERE email = ?;');
@@ -197,8 +198,9 @@ class User extends dbh
         }
     }
 
-    public function updatePasswordViaResetCode($resetCode) {
-        $userExists=  $this->userExists();
+    public function updatePasswordViaResetCode($resetCode)
+    {
+        $userExists =  $this->userExists();
 
         if ($userExists == 0) {
             $stmt = $this->connection()->prepare('SELECT * FROM users WHERE email = ?;');
@@ -212,39 +214,36 @@ class User extends dbh
             $hashedCode = $stmt->fetchAll();
             $checkCode = password_verify($resetCode, $hashedCode['0']['resetcode']);
 
-            if(!$checkCode == false) {
+            if (!$checkCode == false) {
 
                 $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
                 $stmt = $this->connection()->prepare('UPDATE users SET password = ? WHERE email = ?;');
 
-                if(!$stmt->execute(array($hashedPassword, $this->email))) {
+                if (!$stmt->execute(array($hashedPassword, $this->email))) {
                     $stmt = null;
                     header("location: resetPassword?error=stmtResetPasswordFailed");
                     exit();
-                }
-                else {
+                } else {
 
-                $stmt2 = $this->connection()->prepare('UPDATE users SET resetcode = NULL WHERE email = ?;');
+                    $stmt2 = $this->connection()->prepare('UPDATE users SET resetcode = NULL WHERE email = ?;');
 
-                if (!$stmt2->execute(array($this->email))) {
-                    $stmt = null;
-                    header("location:forgottenPassword.php?error=stmt2ResetPasswordFailed");
-                    exit();
+                    if (!$stmt2->execute(array($this->email))) {
+                        $stmt = null;
+                        header("location:forgottenPassword.php?error=stmt2ResetPasswordFailed");
+                        exit();
+                    }
                 }
-            }
 
                 $stmt = null;
-
-            }
-            else {
+            } else {
                 header("location:resetPassword.php?email=$this->email&error=InvalidCode");
                 exit();
             }
         }
-
     }
 
-    public function updateProfilePicture($imageName) {
+    public function updateProfilePicture($imageName)
+    {
 
         $stmt = $this->connection()->prepare('UPDATE users SET profilepicture = ? WHERE email = ?;');
 
@@ -257,8 +256,9 @@ class User extends dbh
         $_SESSION['userProfilePicture'] = $imageName;
     }
 
-    public function updateBiography($biography) {
-        $stmt  ="UPDATE users SET biography = ? WHERE email = ?";
+    public function updateBiography($biography)
+    {
+        $stmt  = "UPDATE users SET biography = ? WHERE email = ?";
         $result = $this->connection()->prepare($stmt);
 
         if (!$result->execute(array($biography, $this->email))) {
@@ -268,5 +268,4 @@ class User extends dbh
         }
         $_SESSION['userBiography'] = $biography;
     }
-
 }

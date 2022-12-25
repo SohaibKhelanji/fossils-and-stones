@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 
-<?php 
+<?php
 include 'incs/navbar.php';
 
 ?>
@@ -44,39 +44,39 @@ include 'incs/navbar.php';
 
 <h1 style="text-align:center;">Profiel</h1>
 
-<div id="view-user-container"> 
-<form class="login-form" action="" method="post">
-    <div class="form-control">
-                <input type="text" name="userFirstname" value="<?php echo $userFirstname ?>">
-                <i class="fas fa-id-card"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userLastname" value="<?php echo $userLastname ?>">
-                <i class="fas fa-id-card"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userEmail" value="<?php echo $userEmail ?>">
-                <i class="fas fa-at"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userStreetName" value="<?php echo $userStreetName ?>">
-                <i class="fas fa-road"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userHouseNumber" value="<?php echo $userHouseNumber?>">
-                <i class="fas fa-home"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userPostalCode" value="<?php echo $userPostalCode ?>">
-                <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div class="form-control">
-                <input type="text" name="userCity" value="<?php echo $userCity ?>">
-                <i class="fas fa-city"></i>
-            </div>
-            <button name="submit" type="submit" id="submit" class="submit-profile">Bewerken</button>
+<div id="view-user-container">
+    <form class="login-form" action="" method="post">
+        <div class="form-control">
+            <input type="text" name="userFirstname" value="<?php echo $userFirstname ?>">
+            <i class="fas fa-id-card"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userLastname" value="<?php echo $userLastname ?>">
+            <i class="fas fa-id-card"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userEmail" value="<?php echo $userEmail ?>">
+            <i class="fas fa-at"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userStreetName" value="<?php echo $userStreetName ?>">
+            <i class="fas fa-road"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userHouseNumber" value="<?php echo $userHouseNumber ?>">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userPostalCode" value="<?php echo $userPostalCode ?>">
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="form-control">
+            <input type="text" name="userCity" value="<?php echo $userCity ?>">
+            <i class="fas fa-city"></i>
+        </div>
+        <button name="submit" type="submit" id="submit" class="submit-profile">Bewerken</button>
     </form>
-    </div> 
+</div>
 
 <?php
 
