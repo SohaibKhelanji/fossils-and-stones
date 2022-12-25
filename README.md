@@ -33,7 +33,7 @@ To run this project locally on your machine, follow these steps:
 
 
 ## Contributing
-We welcome contributions to this project! If you have an idea for a new feature or a bug to report, please open an issue in the repository.<br>
+We welcome contributions to this project! If you have an idea for a new feature or a bug to report, please open an issue in the repository.
 If you would like to contribute code, please create a new branch and open a pull request when you are ready for it to be reviewed.
 
 ---
