@@ -79,7 +79,7 @@ $dbh = new Dbh();
                 echo "
         <div class=\"user-card\" onclick=\"window.location.href='viewOrder.php?id=$category[orders_id]';\" >
         <img src=\"imgs/$product[image_name]\" alt=\"product image\">
-        <h2>$product[product_name]</h2>
+        <h2>$product[product_name] </h2>  <span class=\"tooltiptext\">Klik voor factuur </span>
         <p style=\"font-size:20px\">€$product[product_price]</p>
         </div>
         <br>
