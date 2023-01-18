@@ -1664,6 +1664,27 @@ button.submit {
   cursor: pointer;
 }
 
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #253d84;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  z-index: 1;
+  margin-left: 20px;
+  display: none;
+}
+
+.user-card:hover .tooltiptext {
+  visibility: visible;
+  display: block;
+}
+
+
 .user-card h2 {
   margin-left: 20px;
 }
