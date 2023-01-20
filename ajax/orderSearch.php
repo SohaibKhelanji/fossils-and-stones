@@ -9,7 +9,7 @@ $dbh = new Dbh();
 
 if (isset($_POST['search'])) {
     $search = $_POST['search'];
-    $stmt = $dbh->connection()->prepare("SELECT * FROM order_product INNER JOIN product ON product.product_id = order_product.product_id INNER JOIN product_image ON product_image.product_id = product.product_id INNER JOIN orders ON orders.orders_id = order_product.orders_id WHERE orders.user_id = $userId AND product_name LIKE '%$search%' OR product_description LIKE '%$search%' or orders.orders_id LIKE '%$search%' ORDER BY product_name DESC;");
+    $stmt = $dbh->connection()->prepare("SELECT * FROM order_product INNER JOIN product ON product.product_id = order_product.product_id INNER JOIN product_image ON product_image.product_id = product.product_id INNER JOIN orders ON orders.orders_id = order_product.orders_id WHERE  product_name LIKE '%$search%' OR product_description LIKE '%$search%' or orders.orders_id LIKE '%$search%'AND orders.user_id = $userId ORDER BY product_name DESC;");
     $stmt->execute();
     $result = $stmt->fetchAll();
     echo "<h2 class=\"search-title\">Zoekresultaten voor: <span>$search</span></h2>";
