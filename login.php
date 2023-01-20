@@ -10,7 +10,33 @@ if (isset($_SESSION['userId'])) {
 include_once 'classes/dbh.php';
 include_once 'classes/user.php';
 
+// set a csrf token 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// check when the user was last active if it was more than 15 minutes ago, unset the csrf token
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 10)) {
+    unset($_SESSION['csrf_token']);
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+
+
+
+
 if (isset($_POST['submit'])) {
+
+//   if csrf token is not set, redirect to login page
+    if (!isset($_SESSION['csrf_token'])) {
+        header('location: login.php?error=csrfTokenInvalid');
+        die();
+    }
+
+//  check if csrf token is valid
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        header('location: login.php?error=csrfTokenInvalid');
+        die();
+    }
 
     $firstname = null;
     $lastname = null;
@@ -57,6 +83,9 @@ if (isset($_POST['submit'])) {
                     } else if ($_GET["error"] == "wrongLoginCredentials") {
                         echo "<p class=\"error-message\" style='color:red'>Het ingevoerde e-mailadres of wachtwoord is onjuist. Probeer het alstublieft nog een keer.</p>";
                     }
+                    elseif ($_GET["error"] == "csrfTokenInvalid") {
+                        echo "<p class=\"error-message\" style='color:red'>Sessie is verlopen, probeer het opnieuw.</p>";
+                    }
                 }
                 ?>
                 <div class="separator"></div>
@@ -71,6 +100,8 @@ if (isset($_POST['submit'])) {
                         <input type="password" name="password" placeholder="Wachtwoord">
                         <i class="fas fa-lock"></i>
                     </div>
+
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>" />
 
                     <button class="submit" type="submit" name="submit">Login</button>
                 </form>
