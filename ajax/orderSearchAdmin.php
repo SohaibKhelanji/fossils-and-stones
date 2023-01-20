@@ -24,7 +24,7 @@ if (isset($_POST['search'])) {
     echo "<h2 class=\"search-title\">Zoekresultaten voor: <span>$search</span></h2>";
     foreach ($result as $product) {
         echo "
-        <div class=\"user-card\" onclick=\"window.location.href='viewOrder.php?id=$product[orders_id]';\" >
+        <div class=\"user-card\" onclick=\"window.location.href='viewOrderAdmin.php?id=$product[orders_id]';\" >
         <img src=\"imgs/$product[image_name]\" alt=\"product image\">
         <h2>$product[product_name]</h2>
         <p style=\"font-size:20px\">bestelnmr. #$product[orders_id]</p>
