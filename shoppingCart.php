@@ -161,7 +161,7 @@ if (isset($_POST['submit']) && !isset($_SESSION['userId'])) {
     unset($_SESSION['cart']);
 
     // redirect to orderConfirm page
-    header("Location: orderConfirm.php?orderId=$last_id");
+    header("Location: orderConfirm.php");
 }
 
 
