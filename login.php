@@ -10,16 +10,28 @@ if (isset($_SESSION['userId'])) {
 include_once 'classes/dbh.php';
 include_once 'classes/user.php';
 
+
 // set a csrf token 
 if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(64));
+}   
+
+
+
+$sessionToken = $_SESSION['csrf_token'];
 
 // check when the user was last active if it was more than 15 minutes ago, unset the csrf token
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 10)) {
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 900)) {
     unset($_SESSION['csrf_token']);
+    unset($_SESSION['LAST_ACTIVITY']);
 }
+
+
+
+// update last activity time stamp 
+
 $_SESSION['LAST_ACTIVITY'] = time();
+
 
 
 
@@ -28,13 +40,14 @@ if (isset($_POST['submit'])) {
 
 //   if csrf token is not set, redirect to login page
     if (!isset($_SESSION['csrf_token'])) {
-        header('location: login.php?error=csrfTokenInvalid');
+        header('location: login.php?error=csrfTokenInvalidSet');
         die();
     }
 
 //  check if csrf token is valid
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         header('location: login.php?error=csrfTokenInvalid');
+        unset($_SESSION['csrf_token']);
         die();
     }
 
@@ -49,6 +62,7 @@ if (isset($_POST['submit'])) {
 
     $user = new User($firstname, $lastname, $email, $streetname, $housenumber, $postalcode, $city, $password);
     $user->loginUser();
+    unset($_SESSION['csrf_token']);
     header('location: index.php?error=none');
 }
 
@@ -101,7 +115,7 @@ if (isset($_POST['submit'])) {
                         <i class="fas fa-lock"></i>
                     </div>
 
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>" />
+                    <input type="hidden" name="csrf_token" value="<?php echo $sessionToken; ?>">
 
                     <button class="submit" type="submit" name="submit">Login</button>
                 </form>
