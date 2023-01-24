@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 25 dec 2022 om 14:15
+-- Gegenereerd op: 18 jan 2023 om 10:01
 -- Serverversie: 10.4.27-MariaDB
 -- PHP-versie: 8.0.25
 
@@ -41,9 +41,11 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`orders_id`, `user_id`, `orders_timestamp`, `orders_processed`) VALUES
 (18, NULL, '2022-12-20 15:35:16', 0),
 (19, 4, '2022-12-20 15:58:54', 0),
-(20, 4, '2022-12-20 16:26:12', 1),
+(20, 4, '2022-12-20 16:26:12', 0),
 (21, 4, '2022-12-20 20:50:55', 1),
-(22, 4, '2022-12-21 09:20:17', 0);
+(22, 4, '2022-12-21 09:20:17', 0),
+(23, NULL, '2023-01-11 09:49:19', 1),
+(24, 4, '2023-01-11 09:50:15', 0);
 
 -- --------------------------------------------------------
 
@@ -65,7 +67,8 @@ CREATE TABLE `order_address` (
 --
 
 INSERT INTO `order_address` (`order_address_id`, `order_address_streetname`, `order_address_housenumber`, `order_address_postalcode`, `order_address_city`, `orders_id`) VALUES
-(4, 'Test', '1', '1111 TT', 'Test', 18);
+(4, 'Test', '1', '1111 TT', 'Test', 18),
+(5, 'Test', '1', '1111 TT', 'Test', 23);
 
 -- --------------------------------------------------------
 
@@ -92,7 +95,10 @@ INSERT INTO `order_product` (`order_product_id`, `orders_id`, `product_id`, `ord
 (18, 21, 3, 1),
 (19, 21, 2, 1),
 (20, 22, 34, 1),
-(21, 22, 3, 1);
+(21, 22, 3, 1),
+(22, 23, 34, 3),
+(23, 23, 2, 1),
+(24, 24, 34, 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +119,8 @@ CREATE TABLE `order_user` (
 --
 
 INSERT INTO `order_user` (`order_user_id`, `order_user_firstname`, `order_user_lastname`, `order_user_email`, `orders_id`) VALUES
-(2, 'Rony', 'Ali', 'Rony@test.nl', 18);
+(2, 'Rony', 'Ali', 'Rony@test.nl', 18),
+(3, 'Henry', 'Robben', 'Hrobben@mbo.nl', 23);
 
 -- --------------------------------------------------------
 
@@ -137,9 +144,9 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_category`, `product_description`, `product_quantity`, `product_availability`) VALUES
 (1, 'Kana-Boon', 150, 1, 'Mooie steen', 999, 'true'),
-(2, 'See Tinh', 120, 2, 'Mooie steen', 998, 'true'),
+(2, 'See Tinh', 120, 2, 'Mooie steen', 997, 'true'),
 (3, 'Namida', 200, 1, 'Mooie steen', 984, 'true'),
-(34, 'Snowglobe', 300, 2, 'Een mooie steen', 997, 'true');
+(34, 'Snowglobe', 300, 2, 'Een mooie steen', 900, 'true');
 
 -- --------------------------------------------------------
 
@@ -180,7 +187,7 @@ INSERT INTO `product_image` (`image_id`, `image_name`, `product_id`) VALUES
 (1, 'kanaboon.png', 1),
 (2, 'seetinh.png', 2),
 (3, 'namida.png', 3),
-(21, '63a1b7e8466a70.14554192.png', 34);
+(21, '63be7a2cc7e6c2.09788407.png', 34);
 
 -- --------------------------------------------------------
 
@@ -302,25 +309,25 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT voor een tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_address`
 --
 ALTER TABLE `order_address`
-  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `order_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `order_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_user`
 --
 ALTER TABLE `order_user`
-  MODIFY `order_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `product`
